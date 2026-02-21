@@ -62,4 +62,16 @@ def predict(transaction: Transaction):
         "fraud_prediction": int(prediction),
         "risk_score": float(probability),
         "risk_level": risk_level
+
     }
+
+
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
