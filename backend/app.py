@@ -11,7 +11,7 @@ app = FastAPI(title="Fraud Detection API")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # allow everything for hackathon demo
-    allow_credentials=True,
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -59,3 +59,4 @@ def predict(transaction: Transaction):
         "risk_score": float(probability),
         "risk_level": risk_level
     }
+
