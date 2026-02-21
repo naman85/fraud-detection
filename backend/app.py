@@ -7,9 +7,9 @@ import os
 
 app = FastAPI(title="Fraud Detection API")
 
-# ===============================
-# CORS (MUST be right after app creation)
-# ===============================
+# ----------------------------
+# CORS (MUST be at top)
+# ----------------------------
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -18,17 +18,17 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ===============================
+# ----------------------------
 # Load Model
-# ===============================
+# ----------------------------
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 model = joblib.load(os.path.join(BASE_DIR, "fraud_model.pkl"))
 scaler = joblib.load(os.path.join(BASE_DIR, "scaler.pkl"))
 
-# ===============================
+# ----------------------------
 # Request Schema
-# ===============================
+# ----------------------------
 class Transaction(BaseModel):
     type: int
     amount: float
@@ -37,16 +37,16 @@ class Transaction(BaseModel):
     oldbalanceDest: float
     newbalanceDest: float
 
-# ===============================
-# Health Check
-# ===============================
+# ----------------------------
+# Health Route
+# ----------------------------
 @app.get("/")
 def home():
     return {"status": "API running successfully"}
 
-# ===============================
-# Prediction Endpoint
-# ===============================
+# ----------------------------
+# Prediction Route
+# ----------------------------
 @app.post("/predict")
 def predict(transaction: Transaction):
     try:
